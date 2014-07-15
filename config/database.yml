@@ -81,4 +81,3 @@ test:
 production:
   <<: *default
   database: waltermitty_production
-  password: <%= ENV['WALTERMITTY_DATABASE_PASSWORD'] %>
