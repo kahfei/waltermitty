@@ -1,8 +1,21 @@
-<% unless cart.line_items.empty? %>
-<div class="cart_title">Your Goods</div>
-  <%= render(cart.line_items) %>
-   Total
-   <%= number_to_currency(cart.total_price) %>
-<%= button_to "Checkout", new_order_path, method: :get %>
-<%= button_to "Empty cart", cart, :method => :delete, :data => { :confirm => 'Are you sure?'} %>
-<% end %>
+<section id="minicart">
+	<p>
+	<strong>Carts</strong></br>
+	<span class="item">
+		<% if cart.line_items.empty? %>
+	  		<%=  "0 item" %>
+		<% else %>
+	  		<%= render(cart.line_items) %>
+		<% end %>
+	</span>  | 
+	<span class="price">
+		<%= number_to_currency(cart.total_price) %>
+	</span>	 
+</p>
+	<% unless cart.line_items.empty? %>
+		<p class="btn-group">
+		  <%= link_to('Checkout', new_order_path, :type => "button", :class => "btn btn-default btn-xs", method: :get) %>
+		  <%= link_to("Empty cart", cart, :type => "button", :class => "btn btn-default btn-xs", :method => :delete, :data => { :confirm => 'Are you sure?'} )%>
+		</p>
+	<% end %>
+</section>
