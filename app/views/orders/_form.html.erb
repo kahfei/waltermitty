@@ -15,6 +15,14 @@
     <%= f.label :name %><br>
     <%= f.text_field :name, size: 40 %>
   </div>
+    <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name, size: 40 %>
+  </div>
+    <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name, size: 40 %>
+  </div>
   <div class="field">
     <%= f.label :address %><br>
     <%= f.text_area :address, row: 3, cols: 40 %>
@@ -22,6 +30,22 @@
   <div class="field">
     <%= f.label :email %><br>
     <%= f.email_field :email, size: 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :card_type %><br>
+    <%= f.select :card_type, [["Visa","visa"], ["MasterCard","master"],["Discover","discover"],["American Express","american express"] ] %>
+  </div>
+  <div class="field">
+    <%= f.label :card_number %><br>
+    <%= f.text_field :card_number, size: 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :card_verification, "Card Verification Value (CVV)" %><br>
+    <%= f.text_field :card_verification, size: 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :card_expires %><br>
+    <%= f.date_select :card_expires, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
   </div>
   <div class="field">
     <%= f.label :pay_type %><br>

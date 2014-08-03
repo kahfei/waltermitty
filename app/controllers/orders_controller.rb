@@ -29,20 +29,41 @@ class OrdersController < ApplicationController
 
   # POST /orders
   # POST /orders.json
-  def create
-    @order = Order.new(order_params)
-    @order.add_line_items_from_cart(@cart)
+  # def create
+  #   @order = Order.new(order_params)
+  #   @order.add_line_items_from_cart(@cart)
+  #   # @order = current_cart.build_order(params[:order])
+  #   @order.ip_address = request.remote_ip
 
-    respond_to do |format|
-      if @order.save
-        Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
-        format.html { redirect_to store_url, notice: 'Thank you for your order.' }
-        format.json { render :show, status: :created, location: @order }
+  #   respond_to do |format|
+  #     if @order.save
+  #       if @order.purchase
+  #         Cart.destroy(session[:cart_id])
+  #         session[:cart_id] = nil
+  #         format.html { redirect_to store_url, notice: 'Thank you for your order.' }
+  #         format.json { render :show, status: :created, location: @order }
+  #         render :action => "sucess"
+  #       else
+  #         render :action => "failure"
+  #       end
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @order.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+
+  def create
+    @order = current_cart.build_order(order_params)
+    @order.ip_address = request.remote_ip
+    if @order.save
+      if @order.purchase
+        render :action => "success"
       else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        render :action => "failure"
       end
+    else
+      render :action => 'new'
     end
   end
 
@@ -78,6 +99,10 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :address, :email, :pay_type)
+      params.require(:order).permit(:name, :address, :email, 
+        :pay_type, :card_number, :card_verification, :card_expires, 
+        :card_type, :first_name, :last_name )
     end
 end
+
+
