@@ -58,6 +58,8 @@ class OrdersController < ApplicationController
     @order.ip_address = request.remote_ip
     if @order.save
       if @order.purchase
+        Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
         render :action => "success"
       else
         render :action => "failure"

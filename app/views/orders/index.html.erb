@@ -3,10 +3,13 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>First Name</th>
+      <th>Last Name</th>
       <th>Address</th>
       <th>Email</th>
+      <th>Card type</th>
       <th>Pay type</th>
+      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,9 +17,11 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.name %></td>
+        <td><%= order.first_name %></td>
+        <td><%= order.last_name %></td>
         <td><%= order.address %></td>
         <td><%= order.email %></td>
+        <td><%= order.card_type %></td>
         <td><%= order.pay_type %></td>
         <td><%= link_to 'Show', order %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
